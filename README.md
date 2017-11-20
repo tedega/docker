@@ -1,2 +1,2 @@
 # docker
-Basic docker images as base for service builds
+Docker image as base for service deployments
