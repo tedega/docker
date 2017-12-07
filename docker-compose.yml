@@ -1,0 +1,45 @@
+version: '2'
+services:
+  fluent:
+    build:
+      context: ./fluentd
+    image: tedega-fluentd:latest
+    ports:
+    - "24224:24224"
+    container_name: tedega-fluentd
+    links:
+      - "elasticsearch"
+  elasticsearch:
+    build:
+      context: ./elasticsearch
+    image: tedega-elasticsearch:6.0.1
+    container_name: tedega-elasticsearch
+    ports:
+    - "9200:9200"
+    - "9300:9300"
+    environment:
+    - "discovery.type=single-node"
+  kibana:
+    build:
+      context: ./kibana
+    image: tedega-kibana:6.0.1
+    container_name: tedega-kibana
+    ports:
+    - "5601:5601"
+    volumes:
+    - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
+    links:
+      - "elasticsearch"
+
+  # example-service:
+  #   build:
+  #     context: ./service
+  #   image: tedega-example:latest
+  #   ports:
+  #   - "2222:22"
+  #   - "5000:5000"
+  #   logging:
+  #     driver: fluentd
+  #     options:
+  #       fluentd-address: "localhost:24224"
+  #       tag: tedega.example-service
