@@ -1,6 +1,6 @@
 version: '2'
 services:
-  fluent:
+  fluentd:
     build:
       context: ./fluentd
     image: tedega-fluentd:latest
@@ -43,3 +43,5 @@ services:
       options:
         fluentd-address: "localhost:24224"
         tag: tedega.example-service
+    links:
+    - "fluentd"
