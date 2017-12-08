@@ -30,16 +30,16 @@ services:
     - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
     links:
       - "elasticsearch"
-
-  # example-service:
-  #   build:
-  #     context: ./service
-  #   image: tedega-example:latest
-  #   ports:
-  #   - "2222:22"
-  #   - "5000:5000"
-  #   logging:
-  #     driver: fluentd
-  #     options:
-  #       fluentd-address: "localhost:24224"
-  #       tag: tedega.example-service
+  example-service:
+    build:
+      context: ./service
+    image: tedega-example:latest
+    container_name: tedega-service-example
+    ports:
+    - "2222:22"
+    - "5000:5000"
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: "localhost:24224"
+        tag: tedega.example-service
